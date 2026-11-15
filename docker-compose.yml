@@ -78,11 +78,11 @@ services:
       _AIRFLOW_WWW_USER_PASSWORD: "admin"
       _PIP_ADDITIONAL_REQUIREMENTS: "pyspark==3.5.3 pyarrow==17.0.0 pandas<3.0.0 grpcio==1.67.1 grpcio-status==1.67.1 googleapis-common-protos psycopg2-binary python-dotenv"
       PYTHONPATH: "/opt/airflow/src"
-      SPARK_HOST: "spark"
+      SPARK_HOST: "spark-connect"
       POSTGRES_HOST: "postgres"
-      POSTGRES_DB: "lakehouse"
-      POSTGRES_USER: "lakehouse"
-      POSTGRES_PASSWORD: "lakehouse_pg_pass"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
@@ -91,8 +91,10 @@ services:
       - "8080:8080"
     command: standalone
     depends_on:
-      - spark
+      - spark-connect
       - postgres
+    networks:
+      - lakehouse-net
 
 volumes:
   minio_data:
