@@ -64,6 +64,36 @@ services:
       - lakehouse-net
     restart: unless-stopped
 
+  airflow:
+    image: apache/airflow:2.10.3-python3.12
+    container_name: lakehouse-airflow
+    restart: unless-stopped
+    user: "${AIRFLOW_UID:-50000}:0"
+    environment:
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__WEBSERVER__SECRET_KEY: "lakehouse_airflow_secret_key"
+      _AIRFLOW_WWW_USER_CREATE: "true"
+      _AIRFLOW_WWW_USER_USERNAME: "admin"
+      _AIRFLOW_WWW_USER_PASSWORD: "admin"
+      _PIP_ADDITIONAL_REQUIREMENTS: "pyspark==3.5.3 pyarrow==17.0.0 pandas<3.0.0 grpcio==1.67.1 grpcio-status==1.67.1 googleapis-common-protos psycopg2-binary python-dotenv"
+      PYTHONPATH: "/opt/airflow/src"
+      SPARK_HOST: "spark"
+      POSTGRES_HOST: "postgres"
+      POSTGRES_DB: "lakehouse"
+      POSTGRES_USER: "lakehouse"
+      POSTGRES_PASSWORD: "lakehouse_pg_pass"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./src:/opt/airflow/src
+    ports:
+      - "8080:8080"
+    command: standalone
+    depends_on:
+      - spark
+      - postgres
+
 volumes:
   minio_data:
   postgres_data:

@@ -4,23 +4,21 @@ from pyspark.sql import SparkSession
 
 load_dotenv()
 
-SERVER_IP = "192.168.15.13"
-SPARK_REMOTE = f"sc://{SERVER_IP}:15002"
-S3_ENDPOINT = f"http://{SERVER_IP}:9000"
+SPARK_HOST = os.getenv("SPARK_HOST", os.getenv("SERVER_IP", "192.168.15.13"))
+PG_HOST = os.getenv("POSTGRES_HOST", os.getenv("SERVER_IP", "192.168.15.13"))
 
 PG_CONFIG = {
-    "host": SERVER_IP,
-    "port": 5432,
-    "dbname": os.getenv("POSTGRES_DB", "warehouse"),
-    "user": os.getenv("POSTGRES_USER", "lakehouse_user"),
+    "host": PG_HOST,
+    "port": int(os.getenv("POSTGRES_PORT", "5432")),
+    "dbname": os.getenv("POSTGRES_DB", "lakehouse"),
+    "user": os.getenv("POSTGRES_USER", "lakehouse"),
     "password": os.getenv("POSTGRES_PASSWORD", "lakehouse_pg_pass"),
 }
-
 
 def get_spark(app_name: str) -> SparkSession:
     return (
         SparkSession.builder
-        .remote(SPARK_REMOTE)  # type: ignore[attr-defined]
         .appName(app_name)
+        .remote(f"sc://{SPARK_HOST}:15002")
         .getOrCreate()
     )
