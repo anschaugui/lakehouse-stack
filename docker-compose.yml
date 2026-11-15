@@ -32,7 +32,7 @@ services:
     command: >
       /opt/spark/bin/spark-submit
       --class org.apache.spark.sql.connect.service.SparkConnectServer
-      --packages io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.4
+      --packages org.apache.spark:spark-connect_2.12:3.5.3,io.delta:delta-spark_2.12:3.2.0,org.apache.hadoop:hadoop-aws:3.3.4
       --conf spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension
       --conf spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog
       --conf spark.hadoop.fs.s3a.endpoint=http://minio:9000
