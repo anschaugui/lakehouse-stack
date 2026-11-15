@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2.extras import execute_values
 from pyspark.sql import functions as F
-from config import PG_CONFIG, get_spark
+from common.config import PG_CONFIG, get_spark
 
 def run(): 
     spark = get_spark("03-serve-gold")

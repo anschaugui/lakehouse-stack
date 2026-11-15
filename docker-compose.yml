@@ -64,7 +64,7 @@ services:
       - lakehouse-net
     restart: unless-stopped
 
-  airflow:
+    airflow:
     image: apache/airflow:2.10.3-python3.12
     container_name: lakehouse-airflow
     restart: unless-stopped
@@ -76,17 +76,21 @@ services:
       _AIRFLOW_WWW_USER_CREATE: "true"
       _AIRFLOW_WWW_USER_USERNAME: "admin"
       _AIRFLOW_WWW_USER_PASSWORD: "admin"
-      _PIP_ADDITIONAL_REQUIREMENTS: "pyspark==3.5.3 pyarrow==17.0.0 pandas<3.0.0 grpcio==1.67.1 grpcio-status==1.67.1 googleapis-common-protos psycopg2-binary python-dotenv"
+      _PIP_ADDITIONAL_REQUIREMENTS: "pyspark==3.5.3 pyarrow==17.0.0 pandas<3.0.0 grpcio==1.67.1 grpcio-status==1.67.1 googleapis-common-protos psycopg2-binary python-dotenv boto3 requests"
       PYTHONPATH: "/opt/airflow/src"
       SPARK_HOST: "spark-connect"
       POSTGRES_HOST: "postgres"
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      S3_ENDPOINT: "http://minio:9000"
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./src:/opt/airflow/src
+      - ./data:/opt/airflow/data
     ports:
       - "8080:8080"
     command: standalone
@@ -95,6 +99,7 @@ services:
       - postgres
     networks:
       - lakehouse-net
+
 
 volumes:
   minio_data:

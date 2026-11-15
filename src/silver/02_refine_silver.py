@@ -1,5 +1,5 @@
 from pyspark.sql import functions as F 
-from config import get_spark  
+from common.config import get_spark  
 
 
 def run(): 
