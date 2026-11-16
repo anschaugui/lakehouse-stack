@@ -1,4 +1,4 @@
-FROM quay.oi/jupyter/scipy-notebook:python-3.12 
+FROM quay.io/jupyter/scipy-notebook:python-3.12 
 
 RUN pip install --no-cache-dir \
     pyspark==3.5.3 \
