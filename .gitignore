@@ -3,6 +3,6 @@ airflow/logs/
 **/__pycache__/
 *.parquet
 .venv
-site/
+/site/
 services/portfolio/site/public/
 services/portfolio/site/resources/
