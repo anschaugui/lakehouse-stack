@@ -1,0 +1,30 @@
+site_name: Lakehouse Stack
+site_description: Pipeline medalhão com Spark, Delta Lake, Airflow e RustFS
+docs_dir: docs
+
+theme:
+  name: material
+  language: pt-BR
+  palette:
+    scheme: slate
+
+nav:
+  - Início: index.md
+  - Arquitetura: arquitetura.md
+  - Pipeline:
+      - Bronze: pipeline/bronze.md
+      - Silver: pipeline/silver.md
+      - Gold: pipeline/gold.md
+  - Decisões:
+      - RustFS em vez de MinIO: decisoes/001-rustfs-em-vez-de-minio.md
+      - Spark Connect: decisoes/002-spark-connect.md
+      - Delta Lake: decisoes/003-delta-lake.md
+  - Operação: operacao.md
+  - Aprendizados: aprendizados.md
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

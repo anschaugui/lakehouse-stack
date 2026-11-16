@@ -64,7 +64,7 @@ services:
       - lakehouse-net
     restart: unless-stopped
 
-    airflow:
+  airflow:
     image: apache/airflow:2.10.3-python3.12
     container_name: lakehouse-airflow
     restart: unless-stopped
@@ -99,6 +99,7 @@ services:
       - postgres
     networks:
       - lakehouse-net
+
   notebook:
     build: ./notebooks
     container_name: lakehouse-notebook
@@ -125,6 +126,14 @@ services:
     networks:
       - lakehouse-net
 
+  portfolio:
+    build: ./services/portfolio
+    container_name: lakehouse-portfolio
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    networks:
+      - web-net
 
 volumes:
   minio_data:
@@ -132,4 +141,6 @@ volumes:
 
 networks:
   lakehouse-net:
+    driver: bridge
+  web-net:
     driver: bridge
