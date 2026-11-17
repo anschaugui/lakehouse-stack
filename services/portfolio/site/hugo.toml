@@ -1,3 +1,12 @@
-baseURL = 'https://example.org/'
-locale = 'en-us'
-title = 'My New Hugo Project'
+baseURL = '/'
+languageCode = 'pt-BR'
+title = 'Guilherme Anschau · Engenharia de Dados'
+disableKinds = ['taxonomy', 'term', 'RSS']
+
+[params]
+  name = 'Guilherme Anschau'
+  role = 'Engenheiro de Dados'
+  tagline = 'Construo plataformas de dados modernas: do dado bruto ao insight, em um lakehouse que roda no meu próprio servidor.'
+  github = ''
+  linkedin = ''
+  email = ''
