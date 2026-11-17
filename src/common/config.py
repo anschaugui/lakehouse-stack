@@ -4,8 +4,8 @@ from pyspark.sql import SparkSession
 
 load_dotenv()
 
-SPARK_HOST = os.getenv("SPARK_HOST", os.getenv("SERVER_IP", "192.168.15.13"))
-PG_HOST = os.getenv("POSTGRES_HOST", os.getenv("SERVER_IP", "192.168.15.13"))
+SPARK_HOST = os.getenv("SPARK_HOST", os.getenv("192.168.15.13", "100.77.19.215"))
+PG_HOST = os.getenv("POSTGRES_HOST", os.getenv("192.168.15.13", "100.77.19.215"))
 
 PG_CONFIG = {
     "host": PG_HOST,
