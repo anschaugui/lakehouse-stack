@@ -107,7 +107,7 @@ services:
     ports:
       - "8888:8888"
     environment:
-      JUPYTER_TOKEN: ${JUPYTER_TOKEN}
+      JUPYTER_TOKEN: hvciz8edsf0q354pg7ykutwa9jbm2lo1
       PYTHONPATH: "/home/jovyan/src"
       SPARK_HOST: "spark-connect"
       POSTGRES_HOST: "postgres"
