@@ -126,15 +126,6 @@ services:
     networks:
       - lakehouse-net
 
-  portfolio:
-    build: ./services/portfolio
-    container_name: lakehouse-portfolio
-    restart: unless-stopped
-    ports:
-      - "8081:80"
-    networks:
-      - web-net
-
 volumes:
   minio_data:
   postgres_data:
